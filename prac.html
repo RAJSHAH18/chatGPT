@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Voice Recognition Example</title>
+</head>
+<body>
+  <button id="startButton">Start Listening</button>
+  <p id="resultText">Recognition results will appear here</p>
+
+  <script>
+    const startButton = document.getElementById('startButton');
+    const resultText = document.getElementById('resultText');
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+
+      recognition.lang = 'en-IN'; // Set the language to English (India)
+
+      recognition.onstart = () => {
+        startButton.textContent = 'Listening...';
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        resultText.textContent = transcript;
+      };
+
+      recognition.onend = () => {
+        startButton.textContent = 'Start Listening';
+      };
+
+      startButton.addEventListener('click', () => {
+        recognition.start();
+      });
+    } else {
+      resultText.textContent = "Speech recognition is not supported by this browser.";
+    }
+    if(ans){
+      console.log(ans);
+    }
+  </script>
+</body>
+</html>
